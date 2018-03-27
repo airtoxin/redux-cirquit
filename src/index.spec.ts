@@ -19,10 +19,9 @@ const incrementAction = cirquit.createCirquitAction<State>(state => ({
   counter: {
     count: state.counter.count + 1
   }
-}))
+}));
 
 describe("createCirquitAction", () => {
-
   it("should return cirquitAction", () => {
     expect(cirquit.createCirquitAction(noopReducer)).toEqual({
       type: cirquit.CirquitActionType,
@@ -34,11 +33,9 @@ describe("createCirquitAction", () => {
   it("should return anonymous named cirquitAction", () => {
     expect(cirquit.createCirquitAction(state => state).name).toBe("anonymous");
   });
-
 });
 
 describe("createCirquitReducer's reducer", () => {
-
   const reducer = cirquit.createCirquitReducer(initialState);
 
   it("should return initialState when invoke with @@init action", () => {
@@ -52,5 +49,4 @@ describe("createCirquitReducer's reducer", () => {
       }
     });
   });
-
 });
