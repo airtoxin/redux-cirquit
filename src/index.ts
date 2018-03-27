@@ -4,7 +4,7 @@ export const CirquitActionType = "@cirquit/action";
 
 export interface CirquitReducer<State> {
   (state: State): State;
-  name: string;
+  name?: string;
 }
 
 export interface CirquitAction<State> extends Action {
@@ -17,7 +17,7 @@ export const createCirquitAction = <State>(
   reducer: CirquitReducer<State>
 ): CirquitAction<State> => ({
   type: CirquitActionType,
-  name: reducer.name,
+  name: reducer.name || "anonymous",
   reducer
 });
 
