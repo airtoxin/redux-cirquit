@@ -48,3 +48,7 @@ const increment = amount => createCirquitAction(state => ({
 
 store.dispatch(increment(1)); // state is { counter: { count: 1 } }
 ```
+
+## License
+
+MIT
