@@ -2,9 +2,11 @@
   "name": "redux-cirquit",
   "version": "1.0.0",
   "description": "short-circuiting action -> reducer handling in redux.",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "fmt": "prettier --parser typescript '{,!(node_modules|dist)/**/}*.ts{,x}' --write",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -18,6 +20,12 @@
   },
   "homepage": "https://github.com/airtoxin/redux-cirquit#readme",
   "devDependencies": {
-    "redux": "^3.7.2"
+    "prettier": "^1.11.1",
+    "redux": "^3.7.2",
+    "tslint": "^5.9.1",
+    "tslint-config-prettier": "^1.10.0",
+    "tslint-config-standard": "^7.0.0",
+    "tslint-plugin-prettier": "^1.3.0",
+    "typescript": "^2.7.2"
   }
 }
