@@ -1,0 +1,23 @@
+{
+  "name": "redux-cirquit",
+  "version": "1.0.0",
+  "description": "short-circuiting action -> reducer handling in redux.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/airtoxin/redux-cirquit.git"
+  },
+  "keywords": [],
+  "author": "airtoxin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/airtoxin/redux-cirquit/issues"
+  },
+  "homepage": "https://github.com/airtoxin/redux-cirquit#readme",
+  "devDependencies": {
+    "redux": "^3.7.2"
+  }
+}
