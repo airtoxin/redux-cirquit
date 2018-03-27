@@ -28,5 +28,23 @@ store.dispatch(increment(1));
 ## Usage
 
 ```js
+import { createStore } from "redux";
+import { createCirquitReducer, createCirquitAction } from "redux-cirquit";
 
+const initialState = {
+  counter: {
+    count: 0
+  }
+};
+const cirquitReducer = createCirquitReducer(initialState);
+const store = createStore(cirquitReducer);
+
+const increment = amount => createCirquitAction(state => ({
+  ...state,
+  counter: {
+    count: state.counter.count + amount
+  }
+}));
+
+store.dispatch(increment(1)); // state is { counter: { count: 1 } }
 ```
