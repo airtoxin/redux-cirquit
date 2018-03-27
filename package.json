@@ -6,7 +6,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "fmt": "prettier --parser typescript '{,!(node_modules|dist)/**/}*.ts{,x}' --write",
-    "build": "tsc"
+    "build": "tsc",
+    "test:fmt": "prettier --list-different --parser typescript '{,!(node_modules|dist)/**/}*.ts{,x}'"
   },
   "repository": {
     "type": "git",
