@@ -6,11 +6,11 @@ __short-circuiting redux action and reducer.__
 
 ## Concept
 
-Yes, concept of redux is beautiful but bit tired,
-because action and reducer is always tight coupling but define separately
+The concept of redux is beautiful but bit tired,
+because action-types, action, actionCreator and reducer are always tight coupled each other, but those are defined separately.
 so production code ware covered with boilerplate.
 
-redux-cirquit's action is a function that return a reducer.
+So redux-cirquit aims to reduce those boilerplate.
 
 ```js
 const increment = amount => createCirquitAction(state => ({
@@ -22,6 +22,9 @@ const increment = amount => createCirquitAction(state => ({
 
 store.dispatch(increment(1));
 ```
+
+exported function `createCirquitAction` invoke with reducer function.
+It returns redux action, so you can dispatch its action in redux way.
 
 ## Install
 
@@ -50,6 +53,8 @@ const increment = amount => createCirquitAction(state => ({
 
 store.dispatch(increment(1)); // state is { counter: { count: 1 } }
 ```
+
+[Full example](https://github.com/airtoxin/redux-cirquit-example)
 
 ## License
 
