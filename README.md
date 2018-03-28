@@ -10,7 +10,7 @@ The concept of redux is beautiful but bit tired,
 because action-types, action, actionCreator and reducer are always tight coupled each other, but those are defined separately.
 so production code ware covered with boilerplate.
 
-So redux-cirquit aims to reduce those boilerplate.
+Aim of redux-cirquit is to reduce those boilerplate.
 
 ```js
 const increment = amount => createCirquitAction(state => ({
