@@ -1,16 +1,25 @@
 # redux-cirquit [![Build Status](https://travis-ci.com/airtoxin/redux-cirquit.svg?token=PRvi8x3pzXzuck3j3Jmt&branch=master)](https://travis-ci.com/airtoxin/redux-cirquit)
 
-__short-circuiting redux action and reducer.__
+__Realize command based short-circuiting redux.__
 
 <img src="/logo.png" width="250px" />
 
 ## Concept
 
-The concept of redux is beautiful but bit tired,
-because action-types, action, actionCreator and reducer are always tight coupled each other, but those are defined separately.
-so production code ware covered with boilerplate.
+The aim of redux-cirquit is to realize command based application system on redux ecosystem.
 
-Aim of redux-cirquit is to reduce those boilerplate.
+Redux is an implementation of Flux based on __event based__ application system.
+Its concept is good but bit tired,
+because event system requires to define event elements separately each other (eventName, eventPublisher, eventSubscriber) to keep loose-coupling between eventPublisher and eventSubscriber.
+
+Event based application system is suitable for large sized application, but overkill for small-medium sized application.
+And we almost define its event elements tight-coupled.
+Tight-couped event system is nearly equals to __command based__ application system.
+If you use redux with command based application system, there are no reason to define event elements separately (actionTypes, action, actionCreator and reducer).
+
+Command based application system is much simpler than event based.
+There is only exists "command", so your actionCreator (with dispatch) is called as command.
+This is a redux-cirquit.
 
 ```js
 const increment = amount => createCirquitAction(state => ({
@@ -19,12 +28,9 @@ const increment = amount => createCirquitAction(state => ({
     count: state.counter.count + amount
   }
 }));
-
+// execute increment command
 store.dispatch(increment(1));
 ```
-
-exported function `createCirquitAction` invoke with reducer function.
-It returns redux action, so you can dispatch its action in redux way.
 
 ## Install
 
