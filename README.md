@@ -62,6 +62,19 @@ store.dispatch(increment(1)); // state is { counter: { count: 1 } }
 
 [Full example](https://github.com/airtoxin/redux-cirquit-example)
 
+## API
+
+### export createCirquitReducer<State>(initialState: State): Redux.Reducer<State>
+
+Creates redux-cirquit's reducer that manages your application's state.
+
+### export createCirquitAction<State>(reducer: State => State, name?: string): Redux.Action
+
+Creates basic redux action to reduce you application's state.
+If this invoked with optional `name` argument or
+reducer in arguments has [function name](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/name),
+this function returns redux action that has its name parameter. Otherwise action.name set "anonymous".
+
 ## License
 
 MIT
