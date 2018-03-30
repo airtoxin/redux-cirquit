@@ -30,8 +30,42 @@ describe("createCirquitAction", () => {
     });
   });
 
-  it("should return anonymous named cirquitAction", () => {
-    expect(cirquit.createCirquitAction(state => state).name).toBe("anonymous");
+  describe("cirquitAction name", () => {
+    it("should be anonymous when reducer is arrow function", () => {
+      expect(cirquit.createCirquitAction(state => state).name).toBe(
+        "anonymous"
+      );
+    });
+
+    it("should be anonymous when reducer is anonymous function", () => {
+      expect(
+        cirquit.createCirquitAction(function(state: State) {
+          return state;
+        }).name
+      ).toBe("anonymous");
+    });
+
+    it("should named by inferred arrow function", () => {
+      const namedReducer = (state: State) => state;
+      expect(cirquit.createCirquitAction(namedReducer).name).toBe(
+        "namedReducer"
+      );
+    });
+
+    it("should named by named function", () => {
+      expect(
+        cirquit.createCirquitAction(function namedReducer(state: State) {
+          return state;
+        }).name
+      ).toBe("namedReducer");
+    });
+
+    it("should named when invoked with name argument", () => {
+      const namedReducer = (state: State) => state;
+      expect(cirquit.createCirquitAction(namedReducer, "nameParams").name).toBe(
+        "nameParams"
+      );
+    });
   });
 });
 
