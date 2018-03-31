@@ -36,14 +36,16 @@ describe("createCirquitAction", () => {
   it("should return cirquitAction", () => {
     expect(cirquit.createCirquitAction(noopReducer)).toEqual({
       type: cirquit.getCirquitActionType(),
-      name: "noopReducer",
+      meta: {
+        name: "noopReducer"
+      },
       reducer: noopReducer
     });
   });
 
   describe("name option", () => {
     it("should be anonymous when reducer is arrow function", () => {
-      expect(cirquit.createCirquitAction(state => state).name).toBe(
+      expect(cirquit.createCirquitAction(state => state).meta.name).toBe(
         "anonymous"
       );
     });
@@ -52,13 +54,13 @@ describe("createCirquitAction", () => {
       expect(
         cirquit.createCirquitAction(function(state: State) {
           return state;
-        }).name
+        }).meta.name
       ).toBe("anonymous");
     });
 
     it("should named by inferred arrow function", () => {
       const namedReducer = (state: State) => state;
-      expect(cirquit.createCirquitAction(namedReducer).name).toBe(
+      expect(cirquit.createCirquitAction(namedReducer).meta.name).toBe(
         "namedReducer"
       );
     });
@@ -67,14 +69,16 @@ describe("createCirquitAction", () => {
       expect(
         cirquit.createCirquitAction(function namedReducer(state: State) {
           return state;
-        }).name
+        }).meta.name
       ).toBe("namedReducer");
     });
 
     it("should named when invoked with name option", () => {
       const namedReducer = (state: State) => state;
       expect(
-        cirquit.createCirquitAction(namedReducer, { name: "nameParams" }).name
+        cirquit.createCirquitAction(namedReducer, {
+          meta: { name: "nameParams" }
+        }).meta.name
       ).toBe("nameParams");
     });
   });

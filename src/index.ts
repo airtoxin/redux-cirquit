@@ -30,7 +30,7 @@ export const createCirquitAction = <State>(
 ): CirquitAction<State> => ({
   type: getCirquitActionType(options.namespace),
   meta: {
-    name: (options.meta && options.meta.name) || reducer.name || "anonymous",
+    name: (options.meta && options.meta.name) || reducer.name || "anonymous"
   },
   reducer
 });
