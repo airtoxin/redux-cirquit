@@ -9,7 +9,7 @@ export interface CirquitReducer<State> {
 }
 
 export interface CirquitActionMeta {
-  name?: string;
+  reducerName?: string;
   [key: string]: any;
 }
 
@@ -33,7 +33,8 @@ export const createCirquitAction = <State>(
   type: getCirquitActionType(options.namespace),
   meta: {
     ...options.meta,
-    name: (options.meta && options.meta.name) || reducer.name || "anonymous"
+    reducerName:
+      (options.meta && options.meta.reducerName) || reducer.name || "anonymous"
   },
   payload: {
     reducer

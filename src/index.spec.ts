@@ -40,7 +40,7 @@ describe("createCirquitAction", () => {
     expect(createCirquitAction(noopReducer)).toEqual({
       type: getCirquitActionType(),
       meta: {
-        name: "noopReducer"
+        reducerName: "noopReducer"
       },
       payload: {
         reducer: noopReducer
@@ -53,43 +53,47 @@ describe("createCirquitAction", () => {
       const meta = { a: "a", b: "b" };
       expect(createCirquitAction(noopReducer, { meta }).meta).toEqual({
         ...meta,
-        name: "noopReducer"
+        reducerName: "noopReducer"
       });
     });
   });
 
-  describe("name option", () => {
+  describe("reducerName option", () => {
     it("should be anonymous when reducer is arrow function", () => {
-      expect(createCirquitAction(state => state).meta.name).toBe("anonymous");
+      expect(createCirquitAction(state => state).meta.reducerName).toBe(
+        "anonymous"
+      );
     });
 
     it("should be anonymous when reducer is anonymous function", () => {
       expect(
         createCirquitAction(function(state: State) {
           return state;
-        }).meta.name
+        }).meta.reducerName
       ).toBe("anonymous");
     });
 
     it("should named by inferred arrow function", () => {
       const namedReducer = (state: State) => state;
-      expect(createCirquitAction(namedReducer).meta.name).toBe("namedReducer");
+      expect(createCirquitAction(namedReducer).meta.reducerName).toBe(
+        "namedReducer"
+      );
     });
 
     it("should named by named function", () => {
       expect(
         createCirquitAction(function namedReducer(state: State) {
           return state;
-        }).meta.name
+        }).meta.reducerName
       ).toBe("namedReducer");
     });
 
-    it("should named when invoked with name option", () => {
+    it("should named when invoked with reducerName option", () => {
       const namedReducer = (state: State) => state;
       expect(
         createCirquitAction(namedReducer, {
-          meta: { name: "nameParams" }
-        }).meta.name
+          meta: { reducerName: "nameParams" }
+        }).meta.reducerName
       ).toBe("nameParams");
     });
   });
