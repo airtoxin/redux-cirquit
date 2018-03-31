@@ -1,4 +1,4 @@
-# redux-cirquit [![Build Status](https://travis-ci.com/airtoxin/redux-cirquit.svg?token=PRvi8x3pzXzuck3j3Jmt&branch=master)](https://travis-ci.com/airtoxin/redux-cirquit)
+# redux-cirquit [![Build Status](https://travis-ci.org/airtoxin/redux-cirquit.svg?branch=master)](https://travis-ci.org/airtoxin/redux-cirquit)
 
 __Realize command based short-circuiting redux.__
 
