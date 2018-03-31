@@ -64,11 +64,11 @@ store.dispatch(increment(1)); // state is { counter: { count: 1 } }
 
 ## API
 
-### export createCirquitReducer<State>(initialState: State): Redux.Reducer<State>
+### export createCirquitReducer<State>(initialState: State, options?: { namespace?: string }): Redux.Reducer<State>
 
 Creates redux-cirquit's reducer that manages your application's state.
 
-### export createCirquitAction<State>(reducer: State => State, name?: string): Redux.Action
+### export createCirquitAction<State>(reducer: State => State, options?: { name?: string, namespace?: string }): Redux.Action
 
 Creates basic redux action to reduce you application's state.
 If this invoked with optional `name` argument or
