@@ -42,7 +42,9 @@ describe("createCirquitAction", () => {
       meta: {
         name: "noopReducer"
       },
-      reducer: noopReducer
+      payload: {
+        reducer: noopReducer
+      }
     });
   });
 
