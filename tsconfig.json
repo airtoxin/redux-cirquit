@@ -6,6 +6,7 @@
     "outDir": "./dist",
     "strict": true,
     "noEmitHelpers": true,
+    "importHelpers": true,
     "noErrorTruncation": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
