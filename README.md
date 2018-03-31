@@ -64,8 +64,8 @@ with combineReducers
 
 ```js
 const store = createStore(combineReducers({
-  counter: createCirquitReducer(initialCounterState, { namespace: 'counter' }),
-  user: createCirquitReducer(initialUserState, { namespace: 'user' })
+  counter: createCirquitReducer(initialCounterState, { namespace: "counter" }),
+  user: createCirquitReducer(initialUserState, { namespace: "user" })
 }));
 
 const increment = amount => createCirquitAction(state => ({
