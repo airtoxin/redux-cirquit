@@ -75,6 +75,10 @@ If this invoked with optional `name` argument or
 reducer in arguments has [function name](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/name),
 this function returns redux action that has its name parameter. Otherwise action.name set "anonymous".
 
+## Articles
+
+[それでもやっぱり redux は面倒くさい](https://qiita.com/airtoxin/items/1632d523ad95adf6f3fe) (Japanese)
+
 ## License
 
 MIT
