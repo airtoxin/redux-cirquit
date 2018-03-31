@@ -85,13 +85,16 @@ store.dispatch(increment(1));
 Creates redux-cirquit's reducer that manages your application's state.  
 If you want to split reducer using `combineReducers`, you must specify reducer name by `namespace` option.
 
-### export createCirquitAction\<State\>(reducer: (state: State) => State, options?: { name?: string, namespace?: string }): Redux.Action
+### export createCirquitAction\<State\>(reducer: (state: State) => State, options?: CirquitActionOptions }): Redux.Action
 
 Creates basic redux action to reduce you application's state.  
-If you use splited reducer, must set same `namespace` option of related reducer to this action.  
-`name` is optional argument to define action name.
-If not specify `name`, [function name](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/name) or "anonymous" is used.
-This option is used to debugging only.
+
+#### CirquitActionOptions = { namespace?: string, meta?: { reducerName?: string, ...anyProps } }
+
+If you use splited reducer, must set same `namespace` of related reducer to this action.  
+`meta` properties is almostly pass through to returned action's meta property except `meta.reducerName` property, so you can define any debugging informations in `meta`.  
+`meta.reducerName` is optional property to define action name.
+If not specify `meta.reducerName`, [function name](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/name) or "anonymous" is used.
 
 ## Articles
 

@@ -8,15 +8,22 @@ export interface CirquitReducer<State> {
   name?: string;
 }
 
+export interface CirquitActionMeta {
+  reducerName?: string;
+  [key: string]: any;
+}
+
 export interface CirquitAction<State> extends Action {
   type: string;
-  name: string;
-  reducer: CirquitReducer<State>;
+  meta: CirquitActionMeta;
+  payload: {
+    reducer: CirquitReducer<State>;
+  };
 }
 
 export interface CirquitActionOptions {
-  name?: string;
   namespace?: string;
+  meta?: CirquitActionMeta;
 }
 
 export const createCirquitAction = <State>(
@@ -24,8 +31,14 @@ export const createCirquitAction = <State>(
   options: CirquitActionOptions = {}
 ): CirquitAction<State> => ({
   type: getCirquitActionType(options.namespace),
-  name: options.name || reducer.name || "anonymous",
-  reducer
+  meta: {
+    ...options.meta,
+    reducerName:
+      (options.meta && options.meta.reducerName) || reducer.name || "anonymous"
+  },
+  payload: {
+    reducer
+  }
 });
 
 export interface CirquitReducerOptions {
@@ -38,7 +51,7 @@ export const createCirquitReducer = <State>(
 ) => (state: State = initialState, action: CirquitAction<State>): State => {
   switch (action.type) {
     case getCirquitActionType(options.namespace): {
-      return action.reducer(state);
+      return action.payload.reducer(state);
     }
     default: {
       return state;

@@ -1,5 +1,10 @@
 import "jest";
-import * as cirquit from "./index";
+import {
+  getCirquitActionType,
+  createCirquitReducer,
+  createCirquitAction,
+  CirquitReducer
+} from "./index";
 
 interface State {
   counter: {
@@ -13,17 +18,15 @@ const initialState: State = {
   }
 };
 
-const noopReducer: cirquit.CirquitReducer<State> = state => state;
+const noopReducer: CirquitReducer<State> = state => state;
 
-const incrementActionWithoutNamespace = cirquit.createCirquitAction<State>(
-  state => ({
-    counter: {
-      count: state.counter.count + 1
-    }
-  })
-);
+const incrementActionWithoutNamespace = createCirquitAction<State>(state => ({
+  counter: {
+    count: state.counter.count + 1
+  }
+}));
 
-const incrementActionWithNamespace = cirquit.createCirquitAction<State>(
+const incrementActionWithNamespace = createCirquitAction<State>(
   state => ({
     counter: {
       count: state.counter.count + 1
@@ -34,47 +37,63 @@ const incrementActionWithNamespace = cirquit.createCirquitAction<State>(
 
 describe("createCirquitAction", () => {
   it("should return cirquitAction", () => {
-    expect(cirquit.createCirquitAction(noopReducer)).toEqual({
-      type: cirquit.getCirquitActionType(),
-      name: "noopReducer",
-      reducer: noopReducer
+    expect(createCirquitAction(noopReducer)).toEqual({
+      type: getCirquitActionType(),
+      meta: {
+        reducerName: "noopReducer"
+      },
+      payload: {
+        reducer: noopReducer
+      }
     });
   });
 
-  describe("name option", () => {
+  describe("meta option", () => {
+    it("should pass through meta options to action meta", () => {
+      const meta = { a: "a", b: "b" };
+      expect(createCirquitAction(noopReducer, { meta }).meta).toEqual({
+        ...meta,
+        reducerName: "noopReducer"
+      });
+    });
+  });
+
+  describe("reducerName option", () => {
     it("should be anonymous when reducer is arrow function", () => {
-      expect(cirquit.createCirquitAction(state => state).name).toBe(
+      expect(createCirquitAction(state => state).meta.reducerName).toBe(
         "anonymous"
       );
     });
 
     it("should be anonymous when reducer is anonymous function", () => {
       expect(
-        cirquit.createCirquitAction(function(state: State) {
+        createCirquitAction(function(state: State) {
           return state;
-        }).name
+        }).meta.reducerName
       ).toBe("anonymous");
     });
 
     it("should named by inferred arrow function", () => {
       const namedReducer = (state: State) => state;
-      expect(cirquit.createCirquitAction(namedReducer).name).toBe(
+      expect(createCirquitAction(namedReducer).meta.reducerName).toBe(
         "namedReducer"
       );
     });
 
     it("should named by named function", () => {
       expect(
-        cirquit.createCirquitAction(function namedReducer(state: State) {
+        createCirquitAction(function namedReducer(state: State) {
           return state;
-        }).name
+        }).meta.reducerName
       ).toBe("namedReducer");
     });
 
-    it("should named when invoked with name option", () => {
+    it("should named when invoked with reducerName option", () => {
       const namedReducer = (state: State) => state;
       expect(
-        cirquit.createCirquitAction(namedReducer, { name: "nameParams" }).name
+        createCirquitAction(namedReducer, {
+          meta: { reducerName: "nameParams" }
+        }).meta.reducerName
       ).toBe("nameParams");
     });
   });
@@ -82,8 +101,7 @@ describe("createCirquitAction", () => {
   describe("namespace option", () => {
     it("should be namespace defined action when specified namespace option", () => {
       expect(
-        cirquit.createCirquitAction(noopReducer, { namespace: "my-namespace" })
-          .type
+        createCirquitAction(noopReducer, { namespace: "my-namespace" }).type
       ).toBe("@@cirquit/action/my-namespace");
     });
   });
@@ -91,12 +109,12 @@ describe("createCirquitAction", () => {
 
 describe("createCirquitReducer's reducer", () => {
   it("should return initialState when invoke with @@init action", () => {
-    const reducer = cirquit.createCirquitReducer(initialState);
+    const reducer = createCirquitReducer(initialState);
     expect(reducer(undefined, { type: "@@init" } as any)).toEqual(initialState);
   });
 
   it("should return reduced state when invoke with cirquitAction", () => {
-    const reducer = cirquit.createCirquitReducer(initialState);
+    const reducer = createCirquitReducer(initialState);
     expect(reducer(initialState, incrementActionWithoutNamespace)).toEqual({
       counter: {
         count: 1
@@ -106,7 +124,7 @@ describe("createCirquitReducer's reducer", () => {
 
   describe("namespace option", () => {
     it("should react when action and reducer has same namespace", () => {
-      const reducer = cirquit.createCirquitReducer(initialState, {
+      const reducer = createCirquitReducer(initialState, {
         namespace: "my-namespace"
       });
       expect(reducer(initialState, incrementActionWithNamespace)).toEqual({
@@ -117,7 +135,7 @@ describe("createCirquitReducer's reducer", () => {
     });
 
     it("should not react when action and reducer has different namespace", () => {
-      const reducer = cirquit.createCirquitReducer(initialState, {
+      const reducer = createCirquitReducer(initialState, {
         namespace: "another-namespace"
       });
       expect(reducer(initialState, incrementActionWithNamespace)).toEqual(
@@ -126,14 +144,14 @@ describe("createCirquitReducer's reducer", () => {
     });
 
     it("should not react when action has namespace, reducer has not namespace", () => {
-      const reducer = cirquit.createCirquitReducer(initialState);
+      const reducer = createCirquitReducer(initialState);
       expect(reducer(initialState, incrementActionWithNamespace)).toEqual(
         initialState
       );
     });
 
     it("should not react when action has not namespace, reducer has namespace", () => {
-      const reducer = cirquit.createCirquitReducer(initialState, {
+      const reducer = createCirquitReducer(initialState, {
         namespace: "my-namespace"
       });
       expect(reducer(initialState, incrementActionWithoutNamespace)).toEqual(
