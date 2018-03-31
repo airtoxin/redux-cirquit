@@ -24,7 +24,7 @@ const incrementAction = cirquit.createCirquitAction<State>(state => ({
 describe("createCirquitAction", () => {
   it("should return cirquitAction", () => {
     expect(cirquit.createCirquitAction(noopReducer)).toEqual({
-      type: cirquit.CirquitActionType,
+      type: cirquit.getCirquitActionType(),
       name: "noopReducer",
       reducer: noopReducer
     });
@@ -60,11 +60,11 @@ describe("createCirquitAction", () => {
       ).toBe("namedReducer");
     });
 
-    it("should named when invoked with name argument", () => {
+    it("should named when invoked with name option", () => {
       const namedReducer = (state: State) => state;
-      expect(cirquit.createCirquitAction(namedReducer, "nameParams").name).toBe(
-        "nameParams"
-      );
+      expect(
+        cirquit.createCirquitAction(namedReducer, { name: "nameParams" }).name
+      ).toBe("nameParams");
     });
   });
 });
