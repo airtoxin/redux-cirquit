@@ -1,9 +1,7 @@
 import { Action } from "redux";
 
-export const CirquitActionType = "@cirquit/action";
-
 export const getCirquitActionType = (namespace: string = "") =>
-  `${CirquitActionType}@@${namespace}`;
+  `@@cirquit/action/${namespace}`;
 
 export interface CirquitReducer<State> {
   (state: State): State;
