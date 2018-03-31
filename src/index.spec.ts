@@ -46,6 +46,16 @@ describe("createCirquitAction", () => {
     });
   });
 
+  describe("meta option", () => {
+    it("should pass through meta options to action meta", () => {
+      const meta = { a: "a", b: "b" };
+      expect(createCirquitAction(noopReducer, { meta }).meta).toEqual({
+        ...meta,
+        name: "noopReducer"
+      });
+    });
+  });
+
   describe("name option", () => {
     it("should be anonymous when reducer is arrow function", () => {
       expect(createCirquitAction(state => state).meta.name).toBe("anonymous");
