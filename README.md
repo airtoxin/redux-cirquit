@@ -1,4 +1,4 @@
-# redux-cirquit [![Build Status](https://travis-ci.com/airtoxin/redux-cirquit.svg?token=PRvi8x3pzXzuck3j3Jmt&branch=master)](https://travis-ci.com/airtoxin/redux-cirquit)
+# redux-cirquit [![Build Status](https://travis-ci.org/airtoxin/redux-cirquit.svg?branch=master)](https://travis-ci.org/airtoxin/redux-cirquit)
 
 __Realize command based short-circuiting redux.__
 
@@ -60,20 +60,38 @@ const increment = amount => createCirquitAction(state => ({
 store.dispatch(increment(1)); // state is { counter: { count: 1 } }
 ```
 
+with combineReducers
+
+```js
+const store = createStore(combineReducers({
+  counter: createCirquitReducer(initialCounterState, { namespace: "counter" }),
+  user: createCirquitReducer(initialUserState, { namespace: "user" })
+}));
+
+const increment = amount => createCirquitAction(state => ({
+  ...state,
+  count: state.count + amount
+}), { namespace: "counter" });
+
+store.dispatch(increment(1));
+```
+
 [Full example](https://github.com/airtoxin/redux-cirquit-example)
 
 ## API
 
-### export createCirquitReducer<State>(initialState: State): Redux.Reducer<State>
+### export createCirquitReducer\<State\>(initialState: State, options?: { namespace?: string }): Redux.Reducer\<State\>
 
-Creates redux-cirquit's reducer that manages your application's state.
+Creates redux-cirquit's reducer that manages your application's state.  
+If you want to split reducer using `combineReducers`, you must specify reducer name by `namespace` option.
 
-### export createCirquitAction<State>(reducer: State => State, name?: string): Redux.Action
+### export createCirquitAction\<State\>(reducer: (state: State) => State, options?: { name?: string, namespace?: string }): Redux.Action
 
-Creates basic redux action to reduce you application's state.
-If this invoked with optional `name` argument or
-reducer in arguments has [function name](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/name),
-this function returns redux action that has its name parameter. Otherwise action.name set "anonymous".
+Creates basic redux action to reduce you application's state.  
+If you use splited reducer, must set same `namespace` option of related reducer to this action.  
+`name` is optional argument to define action name.
+If not specify `name`, [function name](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/name) or "anonymous" is used.
+This option is used to debugging only.
 
 ## Articles
 
