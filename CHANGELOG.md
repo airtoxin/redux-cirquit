@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 1.4.0 ()
+## 1.4.0 (WIP)
 
 ### Features
 
