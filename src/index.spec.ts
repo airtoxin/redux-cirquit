@@ -5,6 +5,7 @@ import {
   createCirquitAction,
   CirquitReducer
 } from "./index";
+import { createStore, Dispatch } from "redux";
 
 interface State {
   counter: {
@@ -34,6 +35,24 @@ const incrementActionWithNamespace = createCirquitAction<State>(
   }),
   { namespace: "my-namespace" }
 );
+
+describe("interface between redux", () => {
+  it("createCirquitAction should return redux action", () => {
+    const dispatch = jest.fn<Dispatch<any>>();
+    const action = createCirquitAction<State>(noopReducer);
+    // type checking
+    dispatch(action);
+    // dummy assertion
+    expect(true).toBe(true);
+  });
+
+  it("createCirquitReducer should return redux reducer", () => {
+    const reducer = createCirquitReducer<State>(initialState);
+    // type checking
+    createStore<State>(reducer);
+    expect(true).toBe(true);
+  });
+});
 
 describe("createCirquitAction", () => {
   it("should return cirquitAction", () => {
@@ -110,7 +129,9 @@ describe("createCirquitAction", () => {
 describe("createCirquitReducer's reducer", () => {
   it("should return initialState when invoke with @@init action", () => {
     const reducer = createCirquitReducer(initialState);
-    expect(reducer(undefined, { type: "@@init" } as any)).toEqual(initialState);
+    expect(reducer(undefined as any, { type: "@@init" } as any)).toEqual(
+      initialState
+    );
   });
 
   it("should return reduced state when invoke with cirquitAction", () => {

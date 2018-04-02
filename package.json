@@ -13,6 +13,7 @@
     "test": "npm-run-all --parallel test:*",
     "test:unit": "jest --config jest.config.json",
     "test:fmt": "prettier --list-different --parser typescript '{,!(node_modules|dist)/**/}*.ts{,x}'",
+    "test:compile": "tsc --noEmit",
     "prepublish": "npm-run-all --serial test build"
   },
   "repository": {
