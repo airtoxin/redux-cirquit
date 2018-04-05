@@ -9,10 +9,10 @@
   },
   "scripts": {
     "fmt": "prettier --parser typescript '{,!(node_modules|dist)/**/}*.ts{,x}' --write",
-    "clean": "rimraf dist typings",
-    "build": "npm-run-all --serial build:ts build:flow",
+    "clean": "rimraf dist",
+    "build": "npm-run-all --serial clean build:ts build:flow",
     "build:ts": "tsc",
-    "build:flow": "flowgen --output-file typings/index.js.flow typings/index.d.ts",
+    "build:flow": "flowgen --output-file dist/index.js.flow dist/index.d.ts",
     "test": "npm-run-all --parallel test:*",
     "test:unit": "jest --config jest.config.json",
     "test:fmt": "prettier --list-different --parser typescript '{,!(node_modules|dist)/**/}*.ts{,x}'",
