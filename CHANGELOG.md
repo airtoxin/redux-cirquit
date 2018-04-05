@@ -5,6 +5,7 @@
 ### Features
 
 + Add temporal improvement of TypeScript's typings ([#6](https://github.com/airtoxin/redux-cirquit/pull/6))
++ Add auto generated type definitions of flow ([#7](https://github.com/airtoxin/redux-cirquit/pull/7))
 
 ## 1.3.0 (2018-04-01)
 
