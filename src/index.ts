@@ -1,4 +1,4 @@
-import { Action } from "redux";
+import { Action, AnyAction, Reducer } from "redux";
 
 export const getCirquitActionType = (namespace: string = "") =>
   `@@cirquit/action/${namespace}`;
@@ -48,10 +48,13 @@ export interface CirquitReducerOptions {
 export const createCirquitReducer = <State>(
   initialState: State,
   options: CirquitReducerOptions = {}
-) => (state: State = initialState, action: CirquitAction<State>): State => {
+): Reducer<State> => (
+  state: State = initialState,
+  action: AnyAction /* Use temporal AnyAction instead of CirquitAction<State> https://github.com/Microsoft/TypeScript/issues/16795 */
+): State => {
   switch (action.type) {
     case getCirquitActionType(options.namespace): {
-      return action.payload.reducer(state);
+      return (action as CirquitAction<State>).payload.reducer(state);
     }
     default: {
       return state;

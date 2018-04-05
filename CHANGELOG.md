@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.4.0 (WIP)
+
+### Features
+
++ Add temporal improvement of TypeScript's typings ([#6](https://github.com/airtoxin/redux-cirquit/pull/6))
+
 ## 1.3.0 (2018-04-01)
 
 ### Features
