@@ -21,15 +21,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/airtoxin/redux-cirquit.git"
+    "url": "https://github.com/airtoxin/redux-cirquit"
   },
-  "keywords": [],
+  "keywords": [
+    "redux",
+    "flux",
+    "react",
+    "state"
+  ],
   "author": "airtoxin",
+  "files": [
+    "dist"
+  ],
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/airtoxin/redux-cirquit/issues"
-  },
-  "homepage": "https://github.com/airtoxin/redux-cirquit#readme",
   "devDependencies": {
     "@types/jest": "^22.2.2",
     "flowgen": "^1.2.1",
