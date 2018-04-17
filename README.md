@@ -105,6 +105,8 @@ Get action type used in redux-cirquit internally.
 
 [それでもやっぱり redux は面倒くさい](https://qiita.com/airtoxin/items/1632d523ad95adf6f3fe) (Japanese)
 
+## [Changelog](/CHANGELOG.md)
+
 ## License
 
 MIT
