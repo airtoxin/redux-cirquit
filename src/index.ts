@@ -1,36 +1,36 @@
 import { Action, AnyAction, Reducer } from "redux";
 
-export const getCirquitActionType = (namespace: string = "") =>
-  `@@cirquit/action/${namespace}`;
+export const getActionType = (namespace: string = "") =>
+  `@@cirquit/${namespace}`;
 
 export interface CirquitReducer<State> {
   (state: State): State;
   name?: string;
 }
 
-export interface CirquitActionMeta {
+export interface OperationMeta {
   reducerName?: string;
   [key: string]: any;
 }
 
-export interface CirquitAction<State> extends Action {
+export interface Operation<State> extends Action {
   type: string;
-  meta: CirquitActionMeta;
+  meta: OperationMeta;
   payload: {
     reducer: CirquitReducer<State>;
   };
 }
 
-export interface CirquitActionOptions {
+export interface OperationOptions {
   namespace?: string;
-  meta?: CirquitActionMeta;
+  meta?: OperationMeta;
 }
 
-export const createCirquitAction = <State>(
+export const createOperation = <State>(
   reducer: CirquitReducer<State>,
-  options: CirquitActionOptions = {}
-): CirquitAction<State> => ({
-  type: getCirquitActionType(options.namespace),
+  options: OperationOptions = {}
+): Operation<State> => ({
+  type: getActionType(options.namespace),
   meta: {
     ...options.meta,
     reducerName:
@@ -50,11 +50,11 @@ export const createCirquitReducer = <State>(
   options: CirquitReducerOptions = {}
 ): Reducer<State> => (
   state: State = initialState,
-  action: AnyAction /* Use temporal AnyAction instead of CirquitAction<State> https://github.com/Microsoft/TypeScript/issues/16795 */
+  action: AnyAction /* Use temporal AnyAction instead of Operation<State> https://github.com/Microsoft/TypeScript/issues/16795 */
 ): State => {
   switch (action.type) {
-    case getCirquitActionType(options.namespace): {
-      return (action as CirquitAction<State>).payload.reducer(state);
+    case getActionType(options.namespace): {
+      return (action as Operation<State>).payload.reducer(state);
     }
     default: {
       return state;
