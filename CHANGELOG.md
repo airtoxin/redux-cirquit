@@ -1,5 +1,25 @@
 # CHANGELOG
 
+## 2.0.0 (2018-04-??)
+
+### Feature and Breaking change
+
++ Rename `CirquitAction` to `Operation` ([#8](https://github.com/airtoxin/redux-cirquit/pull/8))
+
+This change only affect to createCirquitAction method's name.
+
+__before__
+
+```js
+createCirquitAction(/* any arguments */);
+```
+
+__after__
+
+```js
+createOperation(/* any arguments */);
+```
+
 ## 1.4.0 (2018-04-05)
 
 ### Features

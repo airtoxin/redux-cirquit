@@ -1,8 +1,8 @@
 import "jest";
 import {
-  getCirquitActionType,
+  getActionType,
   createCirquitReducer,
-  createCirquitAction,
+  createOperation,
   CirquitReducer
 } from "./index";
 import { createStore, Dispatch } from "redux";
@@ -21,13 +21,13 @@ const initialState: State = {
 
 const noopReducer: CirquitReducer<State> = state => state;
 
-const incrementActionWithoutNamespace = createCirquitAction<State>(state => ({
+const incrementActionWithoutNamespace = createOperation<State>(state => ({
   counter: {
     count: state.counter.count + 1
   }
 }));
 
-const incrementActionWithNamespace = createCirquitAction<State>(
+const incrementActionWithNamespace = createOperation<State>(
   state => ({
     counter: {
       count: state.counter.count + 1
@@ -37,9 +37,9 @@ const incrementActionWithNamespace = createCirquitAction<State>(
 );
 
 describe("interface between redux", () => {
-  it("createCirquitAction should return redux action", () => {
+  it("createOperation should return redux action", () => {
     const dispatch = jest.fn<Dispatch<any>>();
-    const action = createCirquitAction<State>(noopReducer);
+    const action = createOperation<State>(noopReducer);
     // type checking
     dispatch(action);
     // dummy assertion
@@ -54,10 +54,10 @@ describe("interface between redux", () => {
   });
 });
 
-describe("createCirquitAction", () => {
-  it("should return cirquitAction", () => {
-    expect(createCirquitAction(noopReducer)).toEqual({
-      type: getCirquitActionType(),
+describe("createOperation", () => {
+  it("should return operation action", () => {
+    expect(createOperation(noopReducer)).toEqual({
+      type: getActionType(),
       meta: {
         reducerName: "noopReducer"
       },
@@ -70,7 +70,7 @@ describe("createCirquitAction", () => {
   describe("meta option", () => {
     it("should pass through meta options to action meta", () => {
       const meta = { a: "a", b: "b" };
-      expect(createCirquitAction(noopReducer, { meta }).meta).toEqual({
+      expect(createOperation(noopReducer, { meta }).meta).toEqual({
         ...meta,
         reducerName: "noopReducer"
       });
@@ -79,14 +79,14 @@ describe("createCirquitAction", () => {
 
   describe("reducerName option", () => {
     it("should be anonymous when reducer is arrow function", () => {
-      expect(createCirquitAction(state => state).meta.reducerName).toBe(
+      expect(createOperation(state => state).meta.reducerName).toBe(
         "anonymous"
       );
     });
 
     it("should be anonymous when reducer is anonymous function", () => {
       expect(
-        createCirquitAction(function(state: State) {
+        createOperation(function(state: State) {
           return state;
         }).meta.reducerName
       ).toBe("anonymous");
@@ -94,14 +94,14 @@ describe("createCirquitAction", () => {
 
     it("should named by inferred arrow function", () => {
       const namedReducer = (state: State) => state;
-      expect(createCirquitAction(namedReducer).meta.reducerName).toBe(
+      expect(createOperation(namedReducer).meta.reducerName).toBe(
         "namedReducer"
       );
     });
 
     it("should named by named function", () => {
       expect(
-        createCirquitAction(function namedReducer(state: State) {
+        createOperation(function namedReducer(state: State) {
           return state;
         }).meta.reducerName
       ).toBe("namedReducer");
@@ -110,7 +110,7 @@ describe("createCirquitAction", () => {
     it("should named when invoked with reducerName option", () => {
       const namedReducer = (state: State) => state;
       expect(
-        createCirquitAction(namedReducer, {
+        createOperation(namedReducer, {
           meta: { reducerName: "nameParams" }
         }).meta.reducerName
       ).toBe("nameParams");
@@ -120,8 +120,8 @@ describe("createCirquitAction", () => {
   describe("namespace option", () => {
     it("should be namespace defined action when specified namespace option", () => {
       expect(
-        createCirquitAction(noopReducer, { namespace: "my-namespace" }).type
-      ).toBe("@@cirquit/action/my-namespace");
+        createOperation(noopReducer, { namespace: "my-namespace" }).type
+      ).toBe("@@cirquit/my-namespace");
     });
   });
 });

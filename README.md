@@ -1,34 +1,34 @@
 # redux-cirquit [![Build Status](https://travis-ci.org/airtoxin/redux-cirquit.svg?branch=master)](https://travis-ci.org/airtoxin/redux-cirquit)
 
-__Realize command based short-circuiting redux.__
+__To realize operation based short-circuiting redux.__
 
 <img src="/logo.png" width="250px" />
 
 ## Concept
 
-The aim of redux-cirquit is to realize command based application system on redux ecosystem.
+The aim of redux-cirquit is to realize operation based application system on redux ecosystem.
 
 Redux is an implementation of Flux based on __event based__ application system.
 Its concept is good but bit tired,
-because event system requires to define event elements separately each other (eventName, eventPublisher, eventSubscriber) to keep loose-coupling between eventPublisher and eventSubscriber.
+because event system requires to define event elements separately each other (EventName, EventPublisher, EventSubscriber) to keep loose-coupling between event publisher and subscriber.
 
-Event based application system is suitable for large sized application, but overkill for small-medium sized application.
-And we almost define its event elements tight-coupled.
-Tight-couped event system is nearly equals to __command based__ application system.
-If you use redux with command based application system, there are no reason to define event elements separately (actionTypes, action, actionCreator and reducer).
+Event based application system is suitable for gigantic large sized application, but overkill for small or medium sized application.
+And we almost define its event elements (event publisher and subscriber) tight-coupled.
+Tight-couped event system is nearly equals to __operation based__ application system.
+If you use redux with operation based application system, there are no reason to define event elements separately (ActionTypes, Action, ActionCreator and Reducer).
 
-Command based application system is much simpler than event based.
-There is only exists "command", so your actionCreator (with dispatch) is called as command.
+Operation based application system is much simpler than event based.
+There is only exists "Operation", so your ActionCreator (with dispatch) is called as operation.
 This is a redux-cirquit.
 
 ```js
-const increment = amount => createCirquitAction(state => ({
+const increment = amount => createOperation(state => ({
   ...state,
   counter: {
     count: state.counter.count + amount
   }
 }));
-// execute increment command
+// execute increment operation
 store.dispatch(increment(1));
 ```
 
@@ -40,7 +40,7 @@ store.dispatch(increment(1));
 
 ```js
 import { createStore } from "redux";
-import { createCirquitReducer, createCirquitAction } from "redux-cirquit";
+import { createCirquitReducer, createOperation } from "redux-cirquit";
 
 const initialState = {
   counter: {
@@ -50,7 +50,7 @@ const initialState = {
 const cirquitReducer = createCirquitReducer(initialState);
 const store = createStore(cirquitReducer);
 
-const increment = amount => createCirquitAction(state => ({
+const increment = amount => createOperation(state => ({
   ...state,
   counter: {
     count: state.counter.count + amount
@@ -68,7 +68,7 @@ const store = createStore(combineReducers({
   user: createCirquitReducer(initialUserState, { namespace: "user" })
 }));
 
-const increment = amount => createCirquitAction(state => ({
+const increment = amount => createOperation(state => ({
   ...state,
   count: state.count + amount
 }), { namespace: "counter" });
@@ -82,23 +82,30 @@ store.dispatch(increment(1));
 
 ### export createCirquitReducer\<State\>(initialState: State, options?: { namespace?: string }): Redux.Reducer\<State\>
 
-Creates redux-cirquit's reducer that manages your application's state.  
-If you want to split reducer using `combineReducers`, you must specify reducer name by `namespace` option.
+Creates redux-cirquit's reducer.  
+If you want to split reducer using `combineReducers`, you should specify `namespace` in option.
 
-### export createCirquitAction\<State\>(reducer: (state: State) => State, options?: CirquitActionOptions }): Redux.Action
+### export createOperation\<State\>(reducer: (s: State) => State, options?: OperationOptions }): Redux.Action
 
-Creates basic redux action to reduce you application's state.  
+Creates operation to reduce state.  
+The operation is actually redux's action.
 
-#### CirquitActionOptions = { namespace?: string, meta?: { reducerName?: string, ...anyProps } }
+#### OperationOptions = { namespace?: string, meta?: { reducerName?: string, ...anyProps } }
 
-If you use splited reducer, must set same `namespace` of related reducer to this action.  
+If you use splitted reducer, you should set same `namespace` of reducer related to this action.  
 `meta` properties is almostly pass through to returned action's meta property except `meta.reducerName` property, so you can define any debugging informations in `meta`.  
 `meta.reducerName` is optional property to define action name.
 If not specify `meta.reducerName`, [function name](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/name) or "anonymous" is used.
 
+### getActionType(namespace: string): string
+
+Get action type used in redux-cirquit internally.
+
 ## Articles
 
 [それでもやっぱり redux は面倒くさい](https://qiita.com/airtoxin/items/1632d523ad95adf6f3fe) (Japanese)
+
+## [Changelog](/CHANGELOG.md)
 
 ## License
 
