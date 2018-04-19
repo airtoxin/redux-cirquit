@@ -5,7 +5,7 @@ import {
   createOperation,
   CirquitReducer
 } from "./index";
-import { createStore, Dispatch } from "redux";
+import { Action, createStore, Dispatch } from "redux";
 
 interface State {
   counter: {
@@ -49,7 +49,7 @@ describe("interface between redux", () => {
   it("createCirquitReducer should return redux reducer", () => {
     const reducer = createCirquitReducer<State>(initialState);
     // type checking
-    createStore<State>(reducer);
+    createStore<State, Action, any, any>(reducer);
     expect(true).toBe(true);
   });
 });
