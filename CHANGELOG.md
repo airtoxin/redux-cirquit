@@ -2,6 +2,10 @@
 
 ## 2.0.0 (2018-04-??)
 
+### Bugfix
+
++ Fix broken compilation of destructuring ([#9](https://github.com/airtoxin/redux-cirquit/pull/9),[#10](https://github.com/airtoxin/redux-cirquit/pull/10),[#11](https://github.com/airtoxin/redux-cirquit/pull/11))
+
 ### Feature and Breaking change
 
 + Rename `CirquitAction` to `Operation` ([#8](https://github.com/airtoxin/redux-cirquit/pull/8))
