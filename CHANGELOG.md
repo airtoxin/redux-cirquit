@@ -6,7 +6,11 @@
 
 + Fix broken compilation of destructuring ([#9](https://github.com/airtoxin/redux-cirquit/pull/9),[#10](https://github.com/airtoxin/redux-cirquit/pull/10),[#11](https://github.com/airtoxin/redux-cirquit/pull/11))
 
-### Feature and Breaking change
+### Feature
+
++ Improve type definitions(Upgrading redux to v4.0.0) ([#10](https://github.com/airtoxin/redux-cirquit/pull/9))
+
+### Breaking change feature
 
 + Rename `CirquitAction` to `Operation` ([#8](https://github.com/airtoxin/redux-cirquit/pull/8))
 
