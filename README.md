@@ -13,8 +13,8 @@ Its concept is good but bit tired,
 because event system requires to define event elements separately each other (EventName, EventPublisher, EventSubscriber) to keep loose-coupling between event publisher and subscriber.
 
 Event based application system is suitable for gigantic large sized application, but overkill for small or medium sized application.
-And we almost define its event elements (event publisher and subscriber) tight-coupled.
-Tight-couped event system is nearly equals to __operation based__ application system.
+And we almost define its event elements (event publisher and subscriber) tightly-coupled.
+Tightly-couped event system is nearly equals to __operation based__ application system.
 If you use redux with operation based application system, there are no reason to define event elements separately (ActionTypes, Action, ActionCreator and Reducer).
 
 Operation based application system is much simpler than event based.
