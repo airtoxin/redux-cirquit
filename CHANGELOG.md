@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.0.1
+
++ Upgrade internal packages ([#13](https://github.com/airtoxin/redux-cirquit/pull/13))
+
 ## 2.0.0 (2018-04-20)
 
 ### Bugfix
@@ -8,7 +12,7 @@
 
 ### Feature
 
-+ Improve type definitions(Upgrading redux to v4.0.0) ([#10](https://github.com/airtoxin/redux-cirquit/pull/9))
++ Improve type definitions(Upgrading redux to v4.0.0) ([#12](https://github.com/airtoxin/redux-cirquit/pull/12))
 
 ### Breaking change feature
 
